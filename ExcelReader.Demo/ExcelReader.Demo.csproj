@@ -5,4 +5,17 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExcelReader\ExcelReader.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SampleFiles\MultipleSheets.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleFiles\SingleSheet.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

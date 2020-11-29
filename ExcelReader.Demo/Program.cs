@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using ExcelReader.Readers;
+using System.Data;
+using System.IO;
 
 namespace ExcelReader.Demo
 {
@@ -6,11 +8,9 @@ namespace ExcelReader.Demo
     {
         internal static void Main(string[] args)
         {
-            DataSet set = new DataSet();
-            DataTable dt = new DataTable();
-            set.Tables.Add(dt);
-
-            dt.Rows
+            FileInfo file = new FileInfo("SampleFiles/SingleSheet.xlsx");
+            IReader reader = new Reader();
+            reader.Read(file);
         }
     }
 }
