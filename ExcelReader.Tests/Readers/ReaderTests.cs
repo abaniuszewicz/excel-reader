@@ -11,22 +11,22 @@ namespace ExcelReader.Tests.Readers
         [SetUp]
         public void Setup()
         {
-            reader = new Reader();
+            _reader = new Reader();
         }
 
         [Test]
         public void Read_WhenPassedNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => reader.Read(null));
+            Assert.Throws<ArgumentNullException>(() => _reader.Read(null));
         }
 
         [Test]
         public void Read_WhenPassedNotExistingFile_ThrowsArgumentException()
         {
             FileInfo nonExistingFile = new FileInfo("c://this_surely_does_not/exists.xlsx");
-            Assert.Throws<ArgumentException>(() => reader.Read(nonExistingFile));
+            Assert.Throws<ArgumentException>(() => _reader.Read(nonExistingFile));
         }
 
-        private IReader reader;
+        private IReader _reader;
     }
 }
