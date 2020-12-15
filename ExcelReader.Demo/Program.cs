@@ -8,7 +8,7 @@ namespace ExcelReader.Demo
     {
         internal static void Main(string[] args)
         {
-            FileInfo file = new FileInfo("SampleFiles/SingleSheet.xlsx");
+            FileInfo file = new FileInfo("SampleFiles/MultipleSheets.xlsx");
             IReader reader = new Reader();
             reader.Read(file);
         }

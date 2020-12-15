@@ -1,15 +1,17 @@
-﻿using ExcelReader.Sets;
+﻿using ExcelReader.Models;
+using ExcelReader.Sets;
 using ExcelReader.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml;
 
 namespace ExcelReader.Readers
 {
     public sealed class Reader : IReader
     {
+        private DirectoryInfo _extractionDirectory;
+
         public ISet Read(FileInfo file)
         {
             if (file == null)
@@ -17,75 +19,48 @@ namespace ExcelReader.Readers
             if (!file.Exists)
                 throw new ArgumentException($"File {file.FullName} does not exist", nameof(file));
 
-            _extractionDirectory = GetExtractionDirectory();
+            _extractionDirectory = Utils.GetUniqueTempDirectory();
 
             try
             {
                 Unzipper.Unzip(file, _extractionDirectory);
-
-                XmlDocument workbook = GetWorkbook();
-                XmlDocument style = GetStyles();
-                XmlDocument sharedStrings = GetSharedStrings();
-                IEnumerable<XmlDocument> sheets = GetSheets();
-
-                return new Set(workbook, style, sharedStrings, sheets);
+                Workbook workbook = GetWorkbook();
+                throw new NotImplementedException();
             }
             finally
             {
                 _extractionDirectory.Delete(recursive: true);
             }
-
-            return null;
         }
 
-        private DirectoryInfo GetExtractionDirectory()
+        private Workbook GetWorkbook()
         {
-            DirectoryInfo directory;
-            do
-            {
-                string path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-                directory = new DirectoryInfo(path);
-            }
-            while (directory.Exists); // loop until we get unique path
-            return directory;
+            DirectoryInfo workbookDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
+            FileInfo workbookFile = workbookDirectory.GetFiles("workbook.xml").First();
+            return Utils.DeserializeXmlFromFile<Workbook>(workbookFile);
         }
 
-        private XmlDocument GetWorkbook()
+        private Styles GetStyles()
         {
-            DirectoryInfo woorkbookDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
-            XmlDocument xml = new XmlDocument();
-            xml.Load(woorkbookDirectory.GetFiles("woorkbook.xml").First().FullName);
-            return xml;
+            DirectoryInfo stylesDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
+            FileInfo stylesFile = stylesDirectory.GetFiles("styles.xml").First();
+            throw new NotImplementedException();
         }
 
-        private IEnumerable<XmlDocument> GetSheets()
-        {
-            DirectoryInfo sheetDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl", "worksheets"));
-            foreach (FileInfo sheet in sheetDirectory.GetFiles("*.xml"))
-            {
-                XmlDocument xml = new XmlDocument();
-                xml.Load(sheet.FullName);
-                yield return xml;
-            }
-
-        }
-
-        private XmlDocument GetStyles()
-        {
-            DirectoryInfo styleDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
-            XmlDocument xml = new XmlDocument();
-            xml.Load(styleDirectory.GetFiles("styles.xml").First().FullName);
-            return xml;
-        }
-
-        private XmlDocument GetSharedStrings()
+        private SharedStrings GetSharedStrings()
         {
             DirectoryInfo sharedStringsDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
-            XmlDocument xml = new XmlDocument();
-            xml.Load(sharedStringsDirectory.GetFiles("sharedStrings.xml").First().FullName);
-            return xml;
+            FileInfo sharedStringsFile = sharedStringsDirectory.GetFiles("sharedStrings.xml").First();
+            throw new NotImplementedException();
         }
 
-        private DirectoryInfo _extractionDirectory;
+        private IEnumerable<Sheet> GetSheets()
+        {
+            DirectoryInfo sheetDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl", "worksheets"));
+            foreach (FileInfo sheetFile in sheetDirectory.GetFiles("*.xml"))
+            {
+            }
+            throw new NotImplementedException();
+        }
     }
 }
