@@ -29,6 +29,7 @@ namespace ExcelReader.Readers
             {
                 Unzipper.Unzip(file, _extractionDirectory);
                 Workbook workbook = GetWorkbook();
+                SharedStringTable sharedStringTable = GetSharedStringTable();
                 throw new NotImplementedException();
             }
             finally
@@ -51,11 +52,11 @@ namespace ExcelReader.Readers
             throw new NotImplementedException();
         }
 
-        private SharedStrings GetSharedStrings()
+        private SharedStringTable GetSharedStringTable()
         {
             DirectoryInfo sharedStringsDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
             FileInfo sharedStringsFile = sharedStringsDirectory.GetFiles("sharedStrings.xml").First();
-            throw new NotImplementedException();
+            return new Deserializer<SharedStringTable>().Deserialize(sharedStringsFile);
         }
 
         private IEnumerable<Sheet> GetSheets()
