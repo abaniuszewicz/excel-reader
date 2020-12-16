@@ -1,4 +1,5 @@
-﻿using ExcelReader.Deserialization.SharedStringsModels;
+﻿using ExcelReader.Deserialization;
+using ExcelReader.Deserialization.SharedStringsModels;
 using ExcelReader.Deserialization.SheetModels;
 using ExcelReader.Deserialization.StylesModels;
 using ExcelReader.Deserialization.WorkbookModels;
@@ -40,7 +41,7 @@ namespace ExcelReader.Readers
         {
             DirectoryInfo workbookDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
             FileInfo workbookFile = workbookDirectory.GetFiles("workbook.xml").First();
-            return Utils.DeserializeXmlFromFile<Workbook>(workbookFile);
+            return new Deserializer<Workbook>().Deserialize(workbookFile);
         }
 
         private Styles GetStyles()

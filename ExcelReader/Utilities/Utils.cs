@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Xml.Serialization;
 
 namespace ExcelReader.Utilities
 {
@@ -16,13 +15,6 @@ namespace ExcelReader.Utilities
                 if (!directory.Exists) 
                     return directory;
             }
-        }
-
-        internal static T DeserializeXmlFromFile<T>(FileInfo file)
-        {
-            using FileStream stream = file.OpenRead();
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            return (T)serializer.Deserialize(stream);
         }
     }
 }

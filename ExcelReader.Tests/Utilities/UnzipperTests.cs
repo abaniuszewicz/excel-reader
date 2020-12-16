@@ -7,7 +7,7 @@ using System.Reflection;
 namespace ExcelReader.Tests.Utilities
 {
     [TestFixture]
-    public class UnzipperTests
+    internal class UnzipperTests
     {
         [SetUp]
         public void Setup()
