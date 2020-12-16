@@ -1,4 +1,7 @@
-﻿using ExcelReader.Models;
+﻿using ExcelReader.Deserialization.SharedStringsModels;
+using ExcelReader.Deserialization.SheetModels;
+using ExcelReader.Deserialization.StylesModels;
+using ExcelReader.Deserialization.WorkbookModels;
 using ExcelReader.Sets;
 using ExcelReader.Utilities;
 using System;

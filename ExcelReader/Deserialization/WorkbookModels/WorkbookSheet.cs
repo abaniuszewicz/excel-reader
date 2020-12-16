@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace ExcelReader.Models
+namespace ExcelReader.Deserialization.WorkbookModels
 {
     public class WorkbookSheet
     {
