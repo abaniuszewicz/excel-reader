@@ -30,6 +30,7 @@ namespace ExcelReader.Readers
                 Unzipper.Unzip(file, _extractionDirectory);
                 Workbook workbook = GetWorkbook();
                 SharedStringTable sharedStringTable = GetSharedStringTable();
+                IEnumerable<Sheet> sheets = GetSheets();
                 throw new NotImplementedException();
             }
             finally
@@ -63,9 +64,7 @@ namespace ExcelReader.Readers
         {
             DirectoryInfo sheetDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl", "worksheets"));
             foreach (FileInfo sheetFile in sheetDirectory.GetFiles("*.xml"))
-            {
-            }
-            throw new NotImplementedException();
+                yield return new Deserializer<Sheet>().Deserialize(sheetFile);
         }
     }
 }

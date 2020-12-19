@@ -1,6 +1,13 @@
-﻿namespace ExcelReader.Deserialization.SheetModels
+﻿using System;
+using System.Xml.Serialization;
+
+namespace ExcelReader.Deserialization.SheetModels
 {
-    class Sheet
+    [Serializable, XmlRoot(ElementName = "worksheet", Namespace = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")]
+    public class Sheet
     {
+        [XmlArray("sheetData")]
+        [XmlArrayItem("row")]
+        public Row[] Rows { get; set; }
     }
 }
