@@ -10,7 +10,7 @@ namespace ExcelReader.Deserialization.SheetModels
     public class Row
     {
         [XmlAttribute("r")]
-        public int Index { get; set; }
-        public Cell[] Cells { get; set; }
+        public int Index { get; init; }
+        public Cell[] Cells { get; init; }
     }
 }

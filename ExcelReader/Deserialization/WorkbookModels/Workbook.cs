@@ -8,6 +8,6 @@ namespace ExcelReader.Deserialization.WorkbookModels
     {
         [XmlArray("sheets")]
         [XmlArrayItem("sheet")]
-        public WorkbookSheet[] Sheets { get; set; }
+        public WorkbookSheet[] Sheets { get; init; }
     }
 }

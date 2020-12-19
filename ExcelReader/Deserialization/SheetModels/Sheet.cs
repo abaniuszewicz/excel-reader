@@ -8,6 +8,6 @@ namespace ExcelReader.Deserialization.SheetModels
     {
         [XmlArray("sheetData")]
         [XmlArrayItem("row")]
-        public Row[] Rows { get; set; }
+        public Row[] Rows { get; init; }
     }
 }

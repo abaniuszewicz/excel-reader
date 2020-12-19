@@ -7,10 +7,10 @@ namespace ExcelReader.Deserialization.SharedStringsModels
     public class SharedStringTable
     {
         [XmlAttribute("count")]
-        public int Count { get; set; }
+        public int Count { get; init; }
         [XmlAttribute("uniqueCount")]
-        public int UniqueCount { get; set; }
+        public int UniqueCount { get; init; }
         [XmlElement("si")]
-        public SharedStringItem[] SharedStringItems { get; set; }
+        public SharedStringItem[] SharedStringItems { get; init; }
     }
 }
