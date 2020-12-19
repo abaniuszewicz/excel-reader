@@ -46,6 +46,7 @@ namespace ExcelReader.Readers
                 Workbook workbook = GetWorkbook();
                 SharedStringTable sharedStringTable = GetSharedStringTable();
                 IEnumerable<Sheet> sheets = GetSheets();
+                Styles styles = GetStyles();
                 throw new NotImplementedException();
             }
             finally
@@ -65,7 +66,7 @@ namespace ExcelReader.Readers
         {
             DirectoryInfo stylesDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
             FileInfo stylesFile = stylesDirectory.GetFiles("styles.xml").First();
-            throw new NotImplementedException();
+            return new Deserializer<Styles>().Deserialize(stylesFile);
         }
 
         private SharedStringTable GetSharedStringTable()
