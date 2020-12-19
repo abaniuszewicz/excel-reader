@@ -11,6 +11,7 @@ namespace ExcelReader.Deserialization.SheetModels
     {
         [XmlAttribute("r")]
         public int Index { get; init; }
+        [XmlElement("c")]
         public Cell[] Cells { get; init; }
     }
 }
