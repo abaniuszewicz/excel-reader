@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ExcelReader.Extensions.Autofac\ExcelReader.Extensions.Autofac.csproj" />
     <ProjectReference Include="..\ExcelReader\ExcelReader.csproj" />
   </ItemGroup>
 
