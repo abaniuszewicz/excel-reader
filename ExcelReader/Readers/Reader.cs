@@ -15,16 +15,13 @@ namespace ExcelReader.Readers
 {
     public sealed class Reader : IReader
     {
-<<<<<<< HEAD
         private DirectoryInfo _extractionDirectory;
-=======
         private readonly ILogger _logger;
 
         public Reader(ILogger logger)
         {
             _logger = logger;
         }
->>>>>>> fa14812bc695ce3d246c5b68a4aa96dafb89b76a
 
         public ISet Read(FileInfo file)
         {
@@ -43,17 +40,13 @@ namespace ExcelReader.Readers
 
             try
             {
-<<<<<<< HEAD
+                _logger.LogDebug("Extracting {0} to {1}...", file.Name, _extractionDirectory.FullName);
                 Unzipper.Unzip(file, _extractionDirectory);
+                _logger.LogDebug("Extraction complete");
                 Workbook workbook = GetWorkbook();
                 SharedStringTable sharedStringTable = GetSharedStringTable();
                 IEnumerable<Sheet> sheets = GetSheets();
                 throw new NotImplementedException();
-=======
-                _logger.LogDebug("Extracting {0} to {1}...", file.Name, extractionDirectory.FullName);
-                Unzipper.Unzip(file, extractionDirectory);
-                _logger.LogDebug("Extraction complete");
->>>>>>> fa14812bc695ce3d246c5b68a4aa96dafb89b76a
             }
             finally
             {
