@@ -1,54 +1,56 @@
 ﻿using System.Collections.Generic;
-using System.Xml;
 
 namespace ExcelReader.Models
 {
     internal class Table : ITable
     {
-        private readonly XmlDocument _sheet;
-        private readonly XmlDocument _styles;
+        private readonly List<IRow> _rows = new List<IRow>();
+        private readonly List<IColumn> _columns = new List<IColumn>();
 
         public string Name { get; set; }
-        public IEnumerable<IRow> Rows { get; }
-        public IEnumerable<IColumn> Columns { get; }
 
-        public Table(string name, XmlDocument sheet, XmlDocument styles)
-        {
-            Name = name;
-            _sheet = sheet;
-            _styles = styles;
-        }
+        public IEnumerable<IRow> Rows => _rows;
+
+        public IEnumerable<IColumn> Columns => _columns;
 
         public void AddColumn(IColumn column)
         {
+            _columns.Add(column);
         }
 
-        public void AddColumn(IColumn column, int position)
+        public void AddColumn(IColumn column, int index)
         {
+            _columns.Insert(index, column);
         }
 
         public void AddRow(IRow row)
         {
+            _rows.Add(row);
         }
 
-        public void AddRow(IRow row, int position)
+        public void AddRow(IRow row, int index)
         {
+            _rows.Insert(index, row);
         }
 
         public void RemoveColumn(IColumn column)
         {
+            _columns.Remove(column);
         }
 
-        public void RemoveColumn(int position)
+        public void RemoveColumn(int index)
         {
+            _columns.RemoveAt(index);
         }
 
         public void RemoveRow(IRow row)
         {
+            _rows.Remove(row);
         }
 
-        public void RemoveRow(int position)
+        public void RemoveRow(int index)
         {
+            _rows.RemoveAt(index);
         }
     }
 }

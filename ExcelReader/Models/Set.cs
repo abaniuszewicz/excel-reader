@@ -1,44 +1,32 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
 
 namespace ExcelReader.Models
 {
     internal class Set : ISet
     {
-        private XmlDocument _woorkbook;
-        private XmlDocument _style;
-        private XmlDocument _sharedStrings;
-        private IEnumerable<XmlDocument> _sheets;
-
-        internal Set(XmlDocument workbook, XmlDocument style, XmlDocument sharedStrings, IEnumerable<XmlDocument> sheets)
-        {
-            _woorkbook = workbook;
-            _style = style;
-            _sharedStrings = sharedStrings;
-            _sheets = sheets;
-        }
+        private readonly List<ITable> _tables = new List<ITable>();
 
         public IEnumerable<ITable> Tables => _tables;
 
         public void AddTable(ITable table)
         {
-            throw new NotImplementedException();
+            _tables.Add(table);
         }
 
-        public void AddTable(ITable table, int position)
+        public void AddTable(ITable table, int index)
         {
-            throw new NotImplementedException();
+            _tables.Insert(index, table);
         }
+
         public void RemoveTable(ITable table)
         {
-            throw new NotImplementedException();
+            _tables.Remove(table);
         }
 
-        public void RemoveTable(int position)
+        public void RemoveTable(int index)
         {
-            throw new NotImplementedException();
+            _tables.RemoveAt(index);
         }
 
         public IEnumerator<ITable> GetEnumerator()
@@ -50,7 +38,5 @@ namespace ExcelReader.Models
         {
             return GetEnumerator();
         }
-
-        private readonly List<ITable> _tables = new List<ITable>();
     }
 }

@@ -7,9 +7,9 @@ namespace ExcelReader
         public IEnumerable<ITable> Tables { get; }
 
         public void AddTable(ITable table);
-        public void AddTable(ITable table, int position);
+        public void AddTable(ITable table, int index);
 
         public void RemoveTable(ITable table);
-        public void RemoveTable(int position);
+        public void RemoveTable(int index);
     }
 }

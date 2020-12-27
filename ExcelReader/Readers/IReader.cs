@@ -1,5 +1,4 @@
-﻿using ExcelReader.Model;
-using System.IO;
+﻿using System.IO;
 
 namespace ExcelReader.Readers
 {
