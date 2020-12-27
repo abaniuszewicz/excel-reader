@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 
-namespace ExcelReader.Tables
+namespace ExcelReader.Models
 {
     internal class Table : ITable
     {

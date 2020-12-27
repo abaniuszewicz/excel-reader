@@ -1,5 +1,5 @@
-﻿using ExcelReader.Readers;
-using ExcelReader.Sets;
+﻿using ExcelReader.Model;
+using ExcelReader.Readers;
 using System.IO;
 
 namespace ExcelReader.Demo.CustomImplementations

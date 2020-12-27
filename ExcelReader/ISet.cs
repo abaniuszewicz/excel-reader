@@ -1,7 +1,6 @@
-﻿using ExcelReader.Tables;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace ExcelReader.Sets
+namespace ExcelReader
 {
     public interface ISet : IEnumerable<ITable>
     {

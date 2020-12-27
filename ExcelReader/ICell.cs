@@ -1,4 +1,4 @@
-﻿namespace ExcelReader.Cells
+﻿namespace ExcelReader
 {
     public interface ICell
     {

@@ -1,7 +1,6 @@
-﻿using ExcelReader.Cells;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace ExcelReader.Tables
+namespace ExcelReader
 {
     public interface IColumn : IEnumerable<ICell>
     {

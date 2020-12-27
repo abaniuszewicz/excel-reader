@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExcelReader.Tables
+namespace ExcelReader
 {
     public interface ITable
     {

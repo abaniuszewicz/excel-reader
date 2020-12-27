@@ -3,7 +3,7 @@ using ExcelReader.Deserialization.SharedStringsModels;
 using ExcelReader.Deserialization.SheetModels;
 using ExcelReader.Deserialization.StylesModels;
 using ExcelReader.Deserialization.WorkbookModels;
-using ExcelReader.Sets;
+using ExcelReader.Model;
 using ExcelReader.Utilities;
 using Microsoft.Extensions.Logging;
 using System;

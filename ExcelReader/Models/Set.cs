@@ -1,10 +1,9 @@
-﻿using ExcelReader.Tables;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace ExcelReader.Sets
+namespace ExcelReader.Models
 {
     internal class Set : ISet
     {
