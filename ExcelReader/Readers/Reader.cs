@@ -40,7 +40,7 @@ namespace ExcelReader.Readers
 
             try
             {
-                _logger.LogDebug("Extracting {0} to {1}...", file.Name, _extractionDirectory.FullName);
+                _logger.LogDebug("Extracting {0} to {1} directory...", file.Name, _extractionDirectory.FullName);
                 Unzipper.Unzip(file, _extractionDirectory);
                 _logger.LogDebug("Extraction complete");
                 Workbook workbook = GetWorkbook();
@@ -52,6 +52,7 @@ namespace ExcelReader.Readers
             finally
             {
                 _extractionDirectory.Delete(recursive: true);
+                _logger.LogDebug("Extraction directory {0} has been deleted.", _extractionDirectory.FullName);
             }
         }
 
