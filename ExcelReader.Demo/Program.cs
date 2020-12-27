@@ -1,11 +1,8 @@
 ﻿using Autofac;
-using ExcelReader.Demo.CustomImplementations;
 using ExcelReader.Extensions.Autofac;
 using ExcelReader.Readers;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Core;
-using System.Data;
 using System.IO;
 
 using MicrosoftLogging = Microsoft.Extensions.Logging;

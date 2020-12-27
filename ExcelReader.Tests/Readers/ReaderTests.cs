@@ -1,4 +1,6 @@
 ﻿using ExcelReader.Readers;
+using Microsoft.Extensions.Logging;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.IO;
@@ -11,7 +13,8 @@ namespace ExcelReader.Tests.Readers
         [SetUp]
         public void Setup()
         {
-            _reader = new Reader();
+            Mock<ILogger> loggerMock = new Mock<ILogger>();
+            _reader = new Reader(loggerMock.Object);
         }
 
         [Test]

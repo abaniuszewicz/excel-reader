@@ -46,7 +46,13 @@ namespace ExcelReader.Readers
                 SharedStringTable sharedStringTable = GetSharedStringTable();
                 IEnumerable<Sheet> sheets = GetSheets();
                 Styles styles = GetStyles();
-                throw new NotImplementedException();
+
+                return new SetFactory(_logger, workbook, sheets, styles, sharedStringTable).Create();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, $"General exception occurred.");
+                throw;
             }
             finally
             {

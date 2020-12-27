@@ -1,7 +1,5 @@
 ﻿using Autofac;
-using Autofac.Builder;
 using ExcelReader.Readers;
-using ExcelReader.Sets;
 
 namespace ExcelReader.Extensions.Autofac
 {
