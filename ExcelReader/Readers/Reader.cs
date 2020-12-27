@@ -1,13 +1,21 @@
-﻿using ExcelReader.Sets;
+﻿using ExcelReader.Deserialization;
+using ExcelReader.Deserialization.SharedStringsModels;
+using ExcelReader.Deserialization.SheetModels;
+using ExcelReader.Deserialization.StylesModels;
+using ExcelReader.Deserialization.WorkbookModels;
+using ExcelReader.Sets;
 using ExcelReader.Utilities;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ExcelReader.Readers
 {
     public sealed class Reader : IReader
     {
+        private DirectoryInfo _extractionDirectory;
         private readonly ILogger _logger;
 
         public Reader(ILogger logger)
@@ -28,30 +36,52 @@ namespace ExcelReader.Readers
                 throw new ArgumentException($"File {file.FullName} does not exist", nameof(file));
             }
 
-            DirectoryInfo extractionDirectory = GetExtractionDirectory();
+            _extractionDirectory = Utils.GetUniqueTempDirectory();
+
             try
             {
-                _logger.LogDebug("Extracting {0} to {1}...", file.Name, extractionDirectory.FullName);
-                Unzipper.Unzip(file, extractionDirectory);
+                _logger.LogDebug("Extracting {0} to {1} directory...", file.Name, _extractionDirectory.FullName);
+                Unzipper.Unzip(file, _extractionDirectory);
                 _logger.LogDebug("Extraction complete");
+                Workbook workbook = GetWorkbook();
+                SharedStringTable sharedStringTable = GetSharedStringTable();
+                IEnumerable<Sheet> sheets = GetSheets();
+                Styles styles = GetStyles();
+                throw new NotImplementedException();
             }
             finally
             {
-                extractionDirectory.Delete(true);
+                _extractionDirectory.Delete(recursive: true);
+                _logger.LogDebug("Extraction directory {0} has been deleted.", _extractionDirectory.FullName);
             }
-            throw new NotImplementedException();
         }
 
-        private DirectoryInfo GetExtractionDirectory()
+        private Workbook GetWorkbook()
         {
-            DirectoryInfo directory;
-            do
-            {
-                string path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-                directory = new DirectoryInfo(path);
-            }
-            while (directory.Exists); // loop until we get unique path
-            return directory;
+            DirectoryInfo workbookDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
+            FileInfo workbookFile = workbookDirectory.GetFiles("workbook.xml").First();
+            return new Deserializer<Workbook>().Deserialize(workbookFile);
+        }
+
+        private Styles GetStyles()
+        {
+            DirectoryInfo stylesDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
+            FileInfo stylesFile = stylesDirectory.GetFiles("styles.xml").First();
+            return new Deserializer<Styles>().Deserialize(stylesFile);
+        }
+
+        private SharedStringTable GetSharedStringTable()
+        {
+            DirectoryInfo sharedStringsDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl"));
+            FileInfo sharedStringsFile = sharedStringsDirectory.GetFiles("sharedStrings.xml").First();
+            return new Deserializer<SharedStringTable>().Deserialize(sharedStringsFile);
+        }
+
+        private IEnumerable<Sheet> GetSheets()
+        {
+            DirectoryInfo sheetDirectory = new DirectoryInfo(Path.Combine(_extractionDirectory.FullName, "xl", "worksheets"));
+            foreach (FileInfo sheetFile in sheetDirectory.GetFiles("*.xml"))
+                yield return new Deserializer<Sheet>().Deserialize(sheetFile);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.IO;
 namespace ExcelReader.Tests.Readers
 {
     [TestFixture]
-    public class ReaderTests
+    internal class ReaderTests
     {
         [SetUp]
         public void Setup()
