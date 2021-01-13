@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace ExcelReader.Utilities
 {
@@ -15,6 +16,25 @@ namespace ExcelReader.Utilities
                 if (!directory.Exists) 
                     return directory;
             }
+        }
+
+        internal static int ExcelColumnNumberStringToZeroBasedIndex(string colAdress)
+        {
+            int[] digits = new int[colAdress.Length];
+            for (int i = 0; i < colAdress.Length; ++i)
+            {
+                digits[i] = Convert.ToInt32(colAdress[i]) - 64;
+            }
+
+            int mul = 1; 
+            int res = 0;
+            for (int pos = digits.Length - 1; pos >= 0; --pos)
+            {
+                res += digits[pos] * mul;
+                mul *= 26;
+            }
+
+            return res - 1;
         }
     }
 }

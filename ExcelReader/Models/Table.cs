@@ -10,10 +10,10 @@ namespace ExcelReader.Models
         private readonly List<IRow> _rows = new List<IRow>();
         private readonly List<IColumn> _columns = new List<IColumn>();
 
-        internal event EventHandler<RowAddedEventArgs> RowAdded;
-        internal event EventHandler<RowRemovedEventArgs> RowRemoved;
-        internal event EventHandler<ColumnAddedEventArgs> ColumnAdded;
-        internal event EventHandler<ColumnRemovedEventArgs> ColumnRemoved;
+        public event EventHandler<RowAddedEventArgs> RowAdded;
+        public event EventHandler<RowRemovedEventArgs> RowRemoved;
+        public event EventHandler<ColumnAddedEventArgs> ColumnAdded;
+        public event EventHandler<ColumnRemovedEventArgs> ColumnRemoved;
 
         public string Name { get; set; }
 

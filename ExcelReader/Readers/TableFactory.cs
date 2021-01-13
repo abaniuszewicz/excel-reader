@@ -1,6 +1,7 @@
 ﻿using ExcelReader.Deserialization.SharedStringsModels;
 using ExcelReader.Deserialization.SheetModels;
 using ExcelReader.Deserialization.StylesModels;
+using ExcelReader.Utilities;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,12 @@ namespace ExcelReader.Readers
         {
             ITable table = new Models.Table();
             List<List<ICell>> matrix = Get2DCellMatrix();
-            throw new NotImplementedException();
+            foreach (List<ICell> matrixRow in matrix)
+            {
+                IRow row = matrixRow.ToRow();
+                table.AddRow(row);
+            }
+
             return table;
         }
 
@@ -39,7 +45,15 @@ namespace ExcelReader.Readers
                 List<ICell> matrixRow = new List<ICell>();
                 foreach (Cell cell in row.Cells)
                 {
-                    throw new NotImplementedException();
+                    (int rowIndex, int columnIndex) = cell.GetZeroBasedPosition();
+                    ICell matrixCell = new Models.Cell()
+                    {
+                        RowIndex = rowIndex,
+                        ColumnIndex = columnIndex,
+                        Value = cell.Value,
+                    };
+
+                    matrixRow.Add(matrixCell);
                 }
 
                 matrix.Add(matrixRow);
